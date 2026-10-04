@@ -1,0 +1,3150 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>IdeaHub — Admin Portal</title>
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+
+<style>
+
+/* =====================================================
+   RESET
+===================================================== */
+
+*{
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
+}
+
+html{
+    scroll-behavior:smooth;
+}
+
+body{
+    font-family:"Inter",Arial,sans-serif;
+    background:#f4f6fa;
+    color:#182235;
+}
+
+button,
+input,
+select,
+textarea{
+    font-family:inherit;
+}
+
+button{
+    cursor:pointer;
+}
+
+a{
+    text-decoration:none;
+    color:inherit;
+}
+
+
+/* =====================================================
+   SIDEBAR
+===================================================== */
+
+.sidebar{
+    position:fixed;
+    left:0;
+    top:0;
+    width:250px;
+    height:100vh;
+
+    background:#101827;
+    color:white;
+
+    display:flex;
+    flex-direction:column;
+
+    z-index:1000;
+
+    transition:.3s ease;
+}
+
+.brand{
+    height:82px;
+
+    display:flex;
+    align-items:center;
+
+    padding:0 24px;
+
+    border-bottom:1px solid #202a3a;
+}
+
+.brand-logo{
+    width:40px;
+    height:40px;
+
+    display:flex;
+    align-items:center;
+    justify-content:center;
+
+    background:#2563eb;
+
+    border-radius:9px;
+
+    font-weight:800;
+    font-size:13px;
+
+    margin-right:11px;
+}
+
+.brand-name{
+    font-size:17px;
+    font-weight:700;
+}
+
+.brand-sub{
+    color:#7f8ba0;
+    font-size:9px;
+    margin-top:2px;
+}
+
+.menu-title{
+    padding:25px 24px 9px;
+
+    color:#667287;
+
+    font-size:9px;
+    font-weight:700;
+
+    letter-spacing:1.2px;
+}
+
+.nav{
+    padding:0 11px;
+}
+
+.nav-link{
+    height:44px;
+
+    display:flex;
+    align-items:center;
+
+    padding:0 13px;
+
+    margin-bottom:4px;
+
+    color:#8d98aa;
+
+    border-radius:7px;
+
+    font-size:12px;
+    font-weight:500;
+
+    transition:.2s;
+}
+
+.nav-link:hover{
+    background:#1b2637;
+    color:white;
+}
+
+.nav-link.active{
+    background:#2563eb;
+    color:white;
+}
+
+.nav-icon{
+    width:28px;
+
+    font-size:16px;
+
+    display:flex;
+    justify-content:center;
+
+    margin-right:7px;
+}
+
+.nav-number{
+    margin-left:auto;
+
+    background:#283448;
+
+    color:#b9c2d0;
+
+    border-radius:10px;
+
+    padding:2px 7px;
+
+    font-size:9px;
+}
+
+.nav-link.active .nav-number{
+    background:rgba(255,255,255,.18);
+    color:white;
+}
+
+.sidebar-footer{
+    margin-top:auto;
+
+    padding:15px;
+
+    border-top:1px solid #202a3a;
+}
+
+.admin-box{
+    display:flex;
+    align-items:center;
+
+    padding:9px;
+
+    background:#172132;
+
+    border-radius:8px;
+}
+
+.avatar{
+    width:36px;
+    height:36px;
+
+    display:flex;
+    align-items:center;
+    justify-content:center;
+
+    background:#2563eb;
+
+    border-radius:50%;
+
+    color:white;
+
+    font-size:10px;
+    font-weight:700;
+
+    flex-shrink:0;
+}
+
+.admin-text{
+    margin-left:9px;
+}
+
+.admin-text strong{
+    display:block;
+    font-size:11px;
+}
+
+.admin-text span{
+    display:block;
+    margin-top:2px;
+    color:#7f8ba0;
+    font-size:9px;
+}
+
+.admin-more{
+    margin-left:auto;
+
+    border:0;
+    background:none;
+
+    color:#758095;
+
+    font-size:13px;
+}
+
+
+/* =====================================================
+   MAIN
+===================================================== */
+
+.main{
+    margin-left:250px;
+    min-height:100vh;
+}
+
+
+/* =====================================================
+   HEADER
+===================================================== */
+
+.header{
+    height:76px;
+
+    background:white;
+
+    border-bottom:1px solid #e5e8ee;
+
+    display:flex;
+    align-items:center;
+    justify-content:space-between;
+
+    padding:0 34px;
+
+    position:sticky;
+    top:0;
+
+    z-index:100;
+}
+
+.header-left{
+    display:flex;
+    align-items:center;
+}
+
+.mobile-menu{
+    display:none;
+
+    border:0;
+    background:none;
+
+    font-size:22px;
+
+    margin-right:13px;
+}
+
+.breadcrumb{
+    color:#9aa3b1;
+
+    font-size:9px;
+
+    margin-bottom:3px;
+}
+
+.header-title{
+    color:#121a29;
+
+    font-size:20px;
+    font-weight:700;
+}
+
+.header-right{
+    display:flex;
+    align-items:center;
+
+    gap:20px;
+}
+
+.notification-button{
+    position:relative;
+
+    width:37px;
+    height:37px;
+
+    background:white;
+
+    border:1px solid #e1e5eb;
+
+    border-radius:8px;
+
+    color:#566174;
+
+    font-size:16px;
+}
+
+.notification-dot{
+    position:absolute;
+
+    width:6px;
+    height:6px;
+
+    right:7px;
+    top:6px;
+
+    border-radius:50%;
+
+    background:#ef4444;
+
+    border:1px solid white;
+}
+
+.profile{
+    display:flex;
+    align-items:center;
+
+    gap:9px;
+
+    padding-left:18px;
+
+    border-left:1px solid #e5e7eb;
+}
+
+.profile-info strong{
+    display:block;
+
+    font-size:11px;
+    color:#1b2433;
+}
+
+.profile-info span{
+    display:block;
+
+    font-size:9px;
+    color:#9aa3b1;
+
+    margin-top:2px;
+}
+
+
+/* =====================================================
+   CONTENT
+===================================================== */
+
+.content{
+    padding:32px 34px 0;
+}
+
+.welcome{
+    display:flex;
+    justify-content:space-between;
+    align-items:flex-end;
+
+    margin-bottom:24px;
+}
+
+.overline{
+    color:#2563eb;
+
+    font-size:9px;
+    font-weight:700;
+
+    letter-spacing:1.3px;
+
+    margin-bottom:6px;
+}
+
+.welcome h2{
+    font-size:25px;
+
+    color:#111827;
+
+    letter-spacing:-.5px;
+}
+
+.welcome p{
+    color:#7b8494;
+
+    font-size:11px;
+
+    margin-top:6px;
+}
+
+.primary{
+    height:39px;
+
+    padding:0 16px;
+
+    background:#2563eb;
+
+    color:white;
+
+    border:0;
+
+    border-radius:7px;
+
+    font-size:11px;
+    font-weight:600;
+
+    transition:.2s;
+}
+
+.primary:hover{
+    background:#1d4ed8;
+    transform:translateY(-1px);
+}
+
+
+/* =====================================================
+   STATISTICS
+===================================================== */
+
+.stats{
+    display:grid;
+
+    grid-template-columns:repeat(4,1fr);
+
+    gap:15px;
+
+    margin-bottom:19px;
+}
+
+.card{
+    background:white;
+
+    border:1px solid #e5e8ee;
+
+    border-radius:9px;
+
+    box-shadow:0 2px 5px rgba(15,23,42,.025);
+}
+
+.stat{
+    padding:18px;
+}
+
+.stat-top{
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+}
+
+.stat-label{
+    color:#7b8494;
+    font-size:10px;
+    font-weight:500;
+}
+
+.stat-icon{
+    width:33px;
+    height:33px;
+
+    display:flex;
+    align-items:center;
+    justify-content:center;
+
+    border-radius:7px;
+
+    font-size:14px;
+}
+
+.blue{
+    background:#eff6ff;
+    color:#2563eb;
+}
+
+.purple{
+    background:#f5f3ff;
+    color:#7c3aed;
+}
+
+.orange{
+    background:#fff7ed;
+    color:#ea580c;
+}
+
+.green{
+    background:#ecfdf5;
+    color:#059669;
+}
+
+.stat-value{
+    margin-top:10px;
+
+    font-size:27px;
+    font-weight:700;
+
+    color:#111827;
+}
+
+.stat-change{
+    margin-top:5px;
+
+    font-size:9px;
+}
+
+.up{
+    color:#059669;
+    font-weight:600;
+}
+
+.muted{
+    color:#a1a8b3;
+    margin-left:4px;
+}
+
+
+/* =====================================================
+   ANALYTICS
+===================================================== */
+
+.analytics{
+    display:grid;
+
+    grid-template-columns:1.7fr 1fr;
+
+    gap:15px;
+
+    margin-bottom:42px;
+}
+
+.panel{
+    background:white;
+
+    border:1px solid #e5e8ee;
+
+    border-radius:9px;
+
+    box-shadow:0 2px 5px rgba(15,23,42,.025);
+}
+
+.panel-padding{
+    padding:20px;
+}
+
+.panel-head{
+    display:flex;
+    justify-content:space-between;
+    align-items:flex-start;
+}
+
+.panel-head h3{
+    font-size:13px;
+    color:#182235;
+}
+
+.panel-head p{
+    color:#a0a7b2;
+    font-size:9px;
+    margin-top:3px;
+}
+
+.period{
+    height:29px;
+
+    padding:0 8px;
+
+    border:1px solid #e2e6eb;
+
+    border-radius:5px;
+
+    background:white;
+
+    color:#687385;
+
+    font-size:9px;
+
+    outline:none;
+}
+
+
+/* BAR CHART */
+
+.chart{
+    height:185px;
+
+    display:flex;
+
+    margin-top:22px;
+}
+
+.y-axis{
+    width:27px;
+
+    display:flex;
+    flex-direction:column;
+    justify-content:space-between;
+
+    padding-bottom:21px;
+
+    color:#a4abb6;
+
+    font-size:8px;
+}
+
+.chart-area{
+    flex:1;
+
+    display:flex;
+
+    align-items:flex-end;
+    justify-content:space-around;
+
+    border-bottom:1px solid #e5e7eb;
+
+    background:
+        linear-gradient(
+            to bottom,
+            transparent 24%,
+            #f0f2f5 25%,
+            transparent 26%,
+            transparent 49%,
+            #f0f2f5 50%,
+            transparent 51%,
+            transparent 74%,
+            #f0f2f5 75%,
+            transparent 76%
+        );
+}
+
+.bar-wrap{
+    height:100%;
+
+    width:12%;
+
+    display:flex;
+    flex-direction:column;
+
+    justify-content:flex-end;
+    align-items:center;
+}
+
+.bar{
+    width:24px;
+
+    border-radius:4px 4px 0 0;
+
+    background:#c7dbff;
+
+    transition:.5s;
+}
+
+.bar.highlight{
+    background:#2563eb;
+}
+
+.month{
+    position:relative;
+
+    top:17px;
+
+    font-size:8px;
+
+    color:#9ca3af;
+}
+
+
+/* DONUT */
+
+.donut-box{
+    min-height:220px;
+
+    display:flex;
+    align-items:center;
+    justify-content:center;
+
+    gap:28px;
+}
+
+.donut{
+    width:137px;
+    height:137px;
+
+    border-radius:50%;
+
+    background:
+        conic-gradient(
+            #2563eb 0 49%,
+            #f59e0b 49% 85%,
+            #ef4444 85% 100%
+        );
+
+    display:flex;
+    align-items:center;
+    justify-content:center;
+
+    position:relative;
+}
+
+.donut:after{
+    content:"";
+
+    width:96px;
+    height:96px;
+
+    position:absolute;
+
+    background:white;
+
+    border-radius:50%;
+}
+
+.donut-center{
+    position:relative;
+    z-index:2;
+
+    text-align:center;
+}
+
+.donut-center strong{
+    display:block;
+
+    font-size:24px;
+
+    color:#111827;
+}
+
+.donut-center span{
+    font-size:8px;
+
+    color:#9ca3af;
+}
+
+.legend{
+    width:125px;
+}
+
+.legend-row{
+    display:grid;
+
+    grid-template-columns:9px 1fr auto;
+
+    align-items:center;
+
+    gap:7px;
+
+    margin:12px 0;
+
+    color:#727b8a;
+
+    font-size:9px;
+}
+
+.legend-row strong{
+    color:#202938;
+}
+
+.legend-dot{
+    width:7px;
+    height:7px;
+
+    border-radius:50%;
+}
+
+.legend-blue{
+    background:#2563eb;
+}
+
+.legend-yellow{
+    background:#f59e0b;
+}
+
+.legend-red{
+    background:#ef4444;
+}
+
+
+/* =====================================================
+   SECTION HEADINGS
+===================================================== */
+
+.section{
+    margin-bottom:45px;
+}
+
+.section-heading{
+    display:flex;
+    justify-content:space-between;
+    align-items:flex-end;
+
+    margin-bottom:14px;
+}
+
+.section-heading h2{
+    font-size:18px;
+    color:#111827;
+}
+
+.section-heading p{
+    color:#2563eb;
+
+    font-size:9px;
+    font-weight:700;
+
+    letter-spacing:1.2px;
+
+    margin-bottom:5px;
+}
+
+.secondary{
+    height:35px;
+
+    padding:0 13px;
+
+    background:white;
+
+    border:1px solid #dfe3e9;
+
+    border-radius:6px;
+
+    color:#4b5563;
+
+    font-size:10px;
+    font-weight:600;
+}
+
+.secondary:hover{
+    background:#f8fafc;
+}
+
+
+/* =====================================================
+   PROJECT TABLE
+===================================================== */
+
+.toolbar{
+    display:flex;
+
+    justify-content:space-between;
+
+    align-items:center;
+
+    padding:14px 16px;
+
+    border-bottom:1px solid #edf0f4;
+}
+
+.search{
+    width:240px;
+    height:33px;
+
+    display:flex;
+    align-items:center;
+
+    gap:8px;
+
+    padding:0 9px;
+
+    border:1px solid #dfe3e9;
+
+    border-radius:6px;
+
+    color:#9aa3b1;
+}
+
+.search input{
+    width:100%;
+
+    border:0;
+    outline:none;
+
+    font-size:10px;
+
+    color:#374151;
+}
+
+.filters{
+    display:flex;
+    gap:7px;
+}
+
+.filters select{
+    height:33px;
+
+    border:1px solid #dfe3e9;
+
+    border-radius:6px;
+
+    padding:0 8px;
+
+    background:white;
+
+    color:#687385;
+
+    font-size:9px;
+
+    outline:none;
+}
+
+.table-scroll{
+    overflow-x:auto;
+}
+
+table{
+    width:100%;
+
+    border-collapse:collapse;
+
+    min-width:850px;
+}
+
+thead{
+    background:#fafbfc;
+}
+
+th{
+    padding:12px 16px;
+
+    text-align:left;
+
+    color:#9aa2af;
+
+    font-size:8px;
+    font-weight:700;
+
+    letter-spacing:.8px;
+}
+
+td{
+    padding:14px 16px;
+
+    border-top:1px solid #f0f2f5;
+
+    color:#667085;
+
+    font-size:10px;
+}
+
+.idea strong{
+    display:block;
+
+    color:#273143;
+
+    font-size:10px;
+}
+
+.idea span{
+    display:block;
+
+    margin-top:3px;
+
+    color:#a0a7b2;
+
+    font-size:8px;
+}
+
+.status{
+    display:inline-flex;
+
+    padding:4px 8px;
+
+    border-radius:20px;
+
+    font-size:8px;
+    font-weight:600;
+}
+
+.approved{
+    background:#ecfdf5;
+    color:#047857;
+}
+
+.review{
+    background:#fffbeb;
+    color:#b45309;
+}
+
+.rejected{
+    background:#fef2f2;
+    color:#b91c1c;
+}
+
+.row-menu{
+    border:0;
+    background:none;
+
+    color:#9ca3af;
+}
+
+
+/* =====================================================
+   USERS
+===================================================== */
+
+.users{
+    display:grid;
+
+    grid-template-columns:repeat(3,1fr);
+
+    gap:13px;
+}
+
+.user{
+    position:relative;
+
+    display:flex;
+    align-items:center;
+
+    padding:16px;
+
+    background:white;
+
+    border:1px solid #e5e8ee;
+
+    border-radius:9px;
+}
+
+.user-avatar{
+    width:39px;
+    height:39px;
+
+    display:flex;
+    align-items:center;
+    justify-content:center;
+
+    border-radius:50%;
+
+    font-size:10px;
+    font-weight:700;
+}
+
+.student{
+    background:#eff6ff;
+    color:#2563eb;
+}
+
+.faculty{
+    background:#f5f3ff;
+    color:#7c3aed;
+}
+
+.user-info{
+    margin-left:10px;
+
+    min-width:0;
+}
+
+.user-info strong{
+    display:block;
+
+    color:#273143;
+
+    font-size:10px;
+
+    white-space:nowrap;
+    overflow:hidden;
+    text-overflow:ellipsis;
+}
+
+.user-info span{
+    display:block;
+
+    margin-top:2px;
+
+    color:#2563eb;
+
+    font-size:8px;
+}
+
+.user-info small{
+    display:block;
+
+    margin-top:3px;
+
+    color:#9ca3af;
+
+    font-size:8px;
+}
+
+.online{
+    position:absolute;
+
+    right:15px;
+    top:17px;
+
+    width:7px;
+    height:7px;
+
+    border-radius:50%;
+
+    background:#10b981;
+
+    box-shadow:0 0 0 3px #ecfdf5;
+}
+
+
+/* =====================================================
+   BROADCAST
+===================================================== */
+
+.broadcast{
+    padding:22px;
+}
+
+.broadcast-header{
+    display:flex;
+    align-items:center;
+
+    gap:12px;
+
+    padding-bottom:19px;
+
+    margin-bottom:19px;
+
+    border-bottom:1px solid #edf0f4;
+}
+
+.broadcast-icon{
+    width:40px;
+    height:40px;
+
+    display:flex;
+    align-items:center;
+    justify-content:center;
+
+    border-radius:8px;
+
+    background:#eff6ff;
+
+    color:#2563eb;
+
+    font-size:17px;
+}
+
+.broadcast-header h3{
+    font-size:12px;
+}
+
+.broadcast-header p{
+    margin-top:3px;
+
+    color:#9aa3b1;
+
+    font-size:9px;
+}
+
+.form-row{
+    display:grid;
+
+    grid-template-columns:1fr 1fr;
+
+    gap:14px;
+}
+
+.form-group{
+    margin-bottom:15px;
+}
+
+.form-group label{
+    display:block;
+
+    margin-bottom:6px;
+
+    color:#4b5563;
+
+    font-size:9px;
+    font-weight:600;
+}
+
+.form-group select,
+.form-group textarea{
+    width:100%;
+
+    border:1px solid #dfe3e9;
+
+    border-radius:6px;
+
+    outline:none;
+
+    background:white;
+
+    color:#374151;
+
+    font-size:10px;
+}
+
+.form-group select{
+    height:36px;
+
+    padding:0 9px;
+}
+
+.form-group textarea{
+    min-height:95px;
+
+    padding:9px;
+
+    resize:vertical;
+}
+
+.form-group select:focus,
+.form-group textarea:focus,
+.search:focus-within{
+    border-color:#2563eb;
+
+    box-shadow:0 0 0 3px rgba(37,99,235,.08);
+}
+
+.text-count{
+    text-align:right;
+
+    color:#a0a7b2;
+
+    font-size:8px;
+
+    margin-top:4px;
+}
+
+.form-actions{
+    display:flex;
+
+    justify-content:flex-end;
+
+    gap:7px;
+}
+
+
+/* =====================================================
+   FOOTER
+===================================================== */
+
+.footer{
+    padding:22px 0 27px;
+
+    border-top:1px solid #e3e6eb;
+
+    display:flex;
+
+    justify-content:space-between;
+
+    color:#9aa3b1;
+
+    font-size:8px;
+}
+
+
+/* =====================================================
+   NOTIFICATION
+===================================================== */
+
+.notification-panel{
+    position:fixed;
+
+    top:67px;
+    right:32px;
+
+    width:330px;
+
+    background:white;
+
+    border:1px solid #e3e6eb;
+
+    border-radius:9px;
+
+    box-shadow:0 15px 40px rgba(15,23,42,.15);
+
+    z-index:2000;
+
+    opacity:0;
+    visibility:hidden;
+
+    transform:translateY(-8px);
+
+    transition:.2s;
+}
+
+.notification-panel.show{
+    opacity:1;
+    visibility:visible;
+    transform:translateY(0);
+}
+
+.notification-head{
+    display:flex;
+    justify-content:space-between;
+
+    padding:15px;
+
+    border-bottom:1px solid #edf0f4;
+}
+
+.notification-head strong{
+    display:block;
+
+    font-size:11px;
+}
+
+.notification-head span{
+    display:block;
+
+    margin-top:2px;
+
+    color:#9aa3b1;
+
+    font-size:8px;
+}
+
+.notification-head button{
+    border:0;
+    background:none;
+
+    font-size:18px;
+
+    color:#9aa3b1;
+}
+
+.notice{
+    display:flex;
+
+    gap:9px;
+
+    padding:14px 15px;
+
+    border-bottom:1px solid #f1f3f5;
+}
+
+.notice:last-child{
+    border-bottom:0;
+}
+
+.notice-dot{
+    width:7px;
+    height:7px;
+
+    border-radius:50%;
+
+    margin-top:4px;
+
+    flex-shrink:0;
+}
+
+.notice-blue{
+    background:#2563eb;
+}
+
+.notice-green{
+    background:#10b981;
+}
+
+.notice-orange{
+    background:#f59e0b;
+}
+
+.notice strong{
+    display:block;
+
+    font-size:9px;
+}
+
+.notice p{
+    margin-top:2px;
+
+    color:#8f98a7;
+
+    font-size:8px;
+}
+
+.notice small{
+    display:block;
+
+    margin-top:4px;
+
+    color:#b1b7c0;
+
+    font-size:7px;
+}
+
+
+/* =====================================================
+   TOAST
+===================================================== */
+
+.toast{
+    position:fixed;
+
+    right:22px;
+    bottom:22px;
+
+    display:flex;
+
+    align-items:center;
+
+    gap:9px;
+
+    padding:11px 14px;
+
+    background:#111827;
+
+    color:white;
+
+    border-radius:7px;
+
+    box-shadow:0 10px 30px rgba(0,0,0,.2);
+
+    z-index:3000;
+
+    transform:translateY(80px);
+
+    opacity:0;
+
+    transition:.25s;
+}
+
+.toast.show{
+    transform:translateY(0);
+    opacity:1;
+}
+
+.toast-icon{
+    width:23px;
+    height:23px;
+
+    display:flex;
+    align-items:center;
+    justify-content:center;
+
+    background:#10b981;
+
+    border-radius:50%;
+
+    font-size:10px;
+}
+
+.toast strong{
+    display:block;
+
+    font-size:9px;
+}
+
+.toast span{
+    display:block;
+
+    color:#aab2bf;
+
+    font-size:8px;
+
+    margin-top:2px;
+}
+
+
+/* =====================================================
+   MOBILE
+===================================================== */
+
+@media(max-width:1100px){
+
+    .stats{
+        grid-template-columns:repeat(2,1fr);
+    }
+
+    .analytics{
+        grid-template-columns:1fr;
+    }
+
+    .users{
+        grid-template-columns:repeat(2,1fr);
+    }
+
+}
+
+
+@media(max-width:768px){
+
+    .sidebar{
+        transform:translateX(-100%);
+    }
+
+    .sidebar.open{
+        transform:translateX(0);
+    }
+
+    .main{
+        margin-left:0;
+    }
+
+    .mobile-menu{
+        display:block;
+    }
+
+    .header{
+        padding:0 16px;
+    }
+
+    .profile-info{
+        display:none;
+    }
+
+    .profile{
+        border-left:0;
+        padding-left:0;
+    }
+
+    .content{
+        padding:24px 16px 0;
+    }
+
+    .welcome{
+        flex-direction:column;
+
+        align-items:flex-start;
+
+        gap:15px;
+    }
+
+    .welcome .primary{
+        width:100%;
+    }
+
+    .stats{
+        grid-template-columns:1fr 1fr;
+    }
+
+    .users{
+        grid-template-columns:1fr;
+    }
+
+    .toolbar{
+        flex-direction:column;
+
+        align-items:stretch;
+
+        gap:8px;
+    }
+
+    .search{
+        width:100%;
+    }
+
+    .filters{
+        width:100%;
+    }
+
+    .filters select{
+        flex:1;
+    }
+
+    .form-row{
+        grid-template-columns:1fr;
+    }
+
+    .notification-panel{
+        left:12px;
+        right:12px;
+
+        width:auto;
+    }
+
+    .footer{
+        flex-direction:column;
+
+        gap:5px;
+    }
+
+}
+
+
+@media(max-width:450px){
+
+    .stats{
+        grid-template-columns:1fr;
+    }
+
+    .notification-button{
+        display:none;
+    }
+
+    .section-heading .secondary{
+        display:none;
+    }
+
+}
+
+</style>
+</head>
+
+
+<body>
+
+
+<!-- =====================================================
+     SIDEBAR
+===================================================== -->
+
+<aside class="sidebar" id="sidebar">
+
+    <div class="brand">
+
+        <div class="brand-logo">
+            IH
+        </div>
+
+        <div>
+            <div class="brand-name">IdeaHub</div>
+            <div class="brand-sub">STUDENT INNOVATION PORTAL</div>
+        </div>
+
+    </div>
+
+
+    <div class="menu-title">
+        MAIN MENU
+    </div>
+
+    <nav class="nav">
+
+        <a href="#dashboard" class="nav-link active">
+            <span class="nav-icon">⌂</span>
+            Dashboard
+        </a>
+
+        <a href="#projects" class="nav-link">
+            <span class="nav-icon">▣</span>
+            All Ideas
+            <span class="nav-number">86</span>
+        </a>
+
+        <a href="#users" class="nav-link">
+            <span class="nav-icon">♙</span>
+            Users
+        </a>
+
+        <a href="#broadcast" class="nav-link">
+            <span class="nav-icon">◇</span>
+            Broadcast
+        </a>
+
+    </nav>
+
+
+    <div class="menu-title">
+        SYSTEM
+    </div>
+
+    <nav class="nav">
+
+        <a href="#settings" class="nav-link" id="settingsLink">
+            <span class="nav-icon">⚙</span>
+            Settings
+        </a>
+
+        <a href="#help" class="nav-link" id="helpLink">
+            <span class="nav-icon">?</span>
+            Help & Support
+        </a>
+
+    </nav>
+
+
+    <div class="sidebar-footer">
+
+        <div class="admin-box">
+
+            <div class="avatar">
+                AD
+            </div>
+
+            <div class="admin-text">
+                <strong>Administrator</strong>
+                <span>Super Admin</span>
+            </div>
+
+            <button class="admin-more">
+                •••
+            </button>
+
+        </div>
+
+    </div>
+
+</aside>
+
+
+
+<!-- =====================================================
+     MAIN
+===================================================== -->
+
+<main class="main">
+
+
+    <!-- HEADER -->
+
+    <header class="header">
+
+        <div class="header-left">
+
+            <button class="mobile-menu" id="mobileMenu">
+                ☰
+            </button>
+
+            <div>
+
+                <div class="breadcrumb">
+                    Administration / Dashboard
+                </div>
+
+                <div class="header-title">
+                    Dashboard
+                </div>
+
+            </div>
+
+        </div>
+
+
+        <div class="header-right">
+
+            <button
+                class="notification-button"
+                id="notificationButton"
+            >
+                ♧
+                <span class="notification-dot"></span>
+            </button>
+
+
+            <div class="profile">
+
+                <div class="avatar">
+                    AD
+                </div>
+
+                <div class="profile-info">
+                    <strong>Admin</strong>
+                    <span>Administrator</span>
+                </div>
+
+            </div>
+
+        </div>
+
+    </header>
+
+
+
+    <!-- CONTENT -->
+
+    <div class="content">
+
+
+        <!-- WELCOME -->
+
+        <section id="dashboard">
+
+            <div class="welcome">
+
+                <div>
+
+                    <div class="overline">
+                        OVERVIEW
+                    </div>
+
+                    <h2>
+                        Good morning, Admin.
+                    </h2>
+
+                    <p>
+                        Here's what's happening across your student innovation portal.
+                    </p>
+
+                </div>
+
+
+                <button
+                    class="primary"
+                    onclick="goToIdeas()"
+                >
+                    + &nbsp; Review Ideas
+                </button>
+
+            </div>
+
+
+            <!-- STATISTICS -->
+
+            <div class="stats">
+
+
+                <div class="card stat">
+
+                    <div class="stat-top">
+
+                        <span class="stat-label">
+                            Total Students
+                        </span>
+
+                        <div class="stat-icon blue">
+                            ♙
+                        </div>
+
+                    </div>
+
+                    <div class="stat-value">
+                        124
+                    </div>
+
+                    <div class="stat-change">
+                        <span class="up">↑ 12%</span>
+                        <span class="muted">vs last month</span>
+                    </div>
+
+                </div>
+
+
+
+                <div class="card stat">
+
+                    <div class="stat-top">
+
+                        <span class="stat-label">
+                            Faculty Members
+                        </span>
+
+                        <div class="stat-icon purple">
+                            ◉
+                        </div>
+
+                    </div>
+
+                    <div class="stat-value">
+                        18
+                    </div>
+
+                    <div class="stat-change">
+                        <span class="up">↑ 4%</span>
+                        <span class="muted">vs last month</span>
+                    </div>
+
+                </div>
+
+
+
+                <div class="card stat">
+
+                    <div class="stat-top">
+
+                        <span class="stat-label">
+                            Idea Submissions
+                        </span>
+
+                        <div class="stat-icon orange">
+                            ◇
+                        </div>
+
+                    </div>
+
+                    <div class="stat-value">
+                        86
+                    </div>
+
+                    <div class="stat-change">
+                        <span class="up">↑ 18%</span>
+                        <span class="muted">vs last month</span>
+                    </div>
+
+                </div>
+
+
+
+                <div class="card stat">
+
+                    <div class="stat-top">
+
+                        <span class="stat-label">
+                            Approved Ideas
+                        </span>
+
+                        <div class="stat-icon green">
+                            ✓
+                        </div>
+
+                    </div>
+
+                    <div class="stat-value">
+                        42
+                    </div>
+
+                    <div class="stat-change">
+                        <span class="up">↑ 9%</span>
+                        <span class="muted">vs last month</span>
+                    </div>
+
+                </div>
+
+            </div>
+
+
+
+            <!-- ANALYTICS -->
+
+            <div class="analytics">
+
+
+                <div class="panel panel-padding">
+
+                    <div class="panel-head">
+
+                        <div>
+                            <h3>Submission Overview</h3>
+                            <p>Idea submissions during the current year</p>
+                        </div>
+
+                        <select class="period" id="period">
+                            <option>Last 6 months</option>
+                            <option>Last 12 months</option>
+                            <option>This year</option>
+                        </select>
+
+                    </div>
+
+
+                    <div class="chart">
+
+                        <div class="y-axis">
+                            <span>40</span>
+                            <span>30</span>
+                            <span>20</span>
+                            <span>10</span>
+                            <span>0</span>
+                        </div>
+
+
+                        <div class="chart-area">
+
+                            <div class="bar-wrap">
+                                <div class="bar" style="height:45%"></div>
+                                <span class="month">May</span>
+                            </div>
+
+                            <div class="bar-wrap">
+                                <div class="bar" style="height:60%"></div>
+                                <span class="month">Jun</span>
+                            </div>
+
+                            <div class="bar-wrap">
+                                <div class="bar" style="height:50%"></div>
+                                <span class="month">Jul</span>
+                            </div>
+
+                            <div class="bar-wrap">
+                                <div class="bar" style="height:75%"></div>
+                                <span class="month">Aug</span>
+                            </div>
+
+                            <div class="bar-wrap">
+                                <div class="bar" style="height:65%"></div>
+                                <span class="month">Sep</span>
+                            </div>
+
+                            <div class="bar-wrap">
+                                <div class="bar highlight" style="height:90%"></div>
+                                <span class="month">Oct</span>
+                            </div>
+
+                        </div>
+
+                    </div>
+
+                </div>
+
+
+
+                <div class="panel panel-padding">
+
+                    <div class="panel-head">
+
+                        <div>
+                            <h3>Idea Status</h3>
+                            <p>Current submission distribution</p>
+                        </div>
+
+                    </div>
+
+
+                    <div class="donut-box">
+
+                        <div class="donut">
+
+                            <div class="donut-center">
+                                <strong>86</strong>
+                                <span>Total Ideas</span>
+                            </div>
+
+                        </div>
+
+
+                        <div class="legend">
+
+                            <div class="legend-row">
+                                <span class="legend-dot legend-blue"></span>
+                                <span>Approved</span>
+                                <strong>42</strong>
+                            </div>
+
+                            <div class="legend-row">
+                                <span class="legend-dot legend-yellow"></span>
+                                <span>Review</span>
+                                <strong>31</strong>
+                            </div>
+
+                            <div class="legend-row">
+                                <span class="legend-dot legend-red"></span>
+                                <span>Rejected</span>
+                                <strong>13</strong>
+                            </div>
+
+                        </div>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+        </section>
+
+
+
+        <!-- =================================================
+             PROJECTS
+        ================================================= -->
+
+        <section class="section" id="projects">
+
+            <div class="section-heading">
+
+                <div>
+                    <p>MANAGEMENT</p>
+                    <h2>Recent Ideas</h2>
+                </div>
+
+                <button
+                    class="secondary"
+                    onclick="showToast('Ideas','All idea submissions are displayed below.')"
+                >
+                    View all ideas →
+                </button>
+
+            </div>
+
+
+            <div class="panel">
+
+                <div class="toolbar">
+
+                    <div class="search">
+
+                        <span>⌕</span>
+
+                        <input
+                            type="text"
+                            id="search"
+                            placeholder="Search ideas..."
+                        >
+
+                    </div>
+
+
+                    <div class="filters">
+
+                        <select id="department">
+                            <option value="all">All Departments</option>
+                            <option value="CSE">CSE</option>
+                            <option value="ECE">ECE</option>
+                            <option value="EEE">EEE</option>
+                        </select>
+
+                        <select id="status">
+                            <option value="all">All Status</option>
+                            <option value="Approved">Approved</option>
+                            <option value="Under Review">Under Review</option>
+                            <option value="Rejected">Rejected</option>
+                        </select>
+
+                    </div>
+
+                </div>
+
+
+                <div class="table-scroll">
+
+                    <table id="ideaTable">
+
+                        <thead>
+
+                            <tr>
+                                <th>ID</th>
+                                <th>IDEA</th>
+                                <th>DEPARTMENT</th>
+                                <th>SUBMITTED BY</th>
+                                <th>DATE</th>
+                                <th>STATUS</th>
+                                <th></th>
+                            </tr>
+
+                        </thead>
+
+
+                        <tbody>
+
+
+                            <tr
+                                data-department="CSE"
+                                data-status="Approved"
+                            >
+
+                                <td>#101</td>
+
+                                <td>
+                                    <div class="idea">
+                                        <strong>
+                                            AI Automated Attendance System
+                                        </strong>
+                                        <span>
+                                            Artificial Intelligence
+                                        </span>
+                                    </div>
+                                </td>
+
+                                <td>CSE</td>
+
+                                <td>Indris</td>
+
+                                <td>02 Oct 2026</td>
+
+                                <td>
+                                    <span class="status approved">
+                                        Approved
+                                    </span>
+                                </td>
+
+                                <td>
+                                    <button class="row-menu">
+                                        •••
+                                    </button>
+                                </td>
+
+                            </tr>
+
+
+
+                            <tr
+                                data-department="ECE"
+                                data-status="Under Review"
+                            >
+
+                                <td>#102</td>
+
+                                <td>
+                                    <div class="idea">
+                                        <strong>
+                                            Smart Irrigation Using IoT
+                                        </strong>
+                                        <span>
+                                            Internet of Things
+                                        </span>
+                                    </div>
+                                </td>
+
+                                <td>ECE</td>
+
+                                <td>Niveth Karthikeyan</td>
+
+                                <td>01 Oct 2026</td>
+
+                                <td>
+                                    <span class="status review">
+                                        Under Review
+                                    </span>
+                                </td>
+
+                                <td>
+                                    <button class="row-menu">
+                                        •••
+                                    </button>
+                                </td>
+
+                            </tr>
+
+
+
+                            <tr
+                                data-department="EEE"
+                                data-status="Approved"
+                            >
+
+                                <td>#103</td>
+
+                                <td>
+                                    <div class="idea">
+                                        <strong>
+                                            Solar Powered EV Charger
+                                        </strong>
+                                        <span>
+                                            Green Energy
+                                        </span>
+                                    </div>
+                                </td>
+
+                                <td>EEE</td>
+
+                                <td>Surya Anil</td>
+
+                                <td>29 Sep 2026</td>
+
+                                <td>
+                                    <span class="status approved">
+                                        Approved
+                                    </span>
+                                </td>
+
+                                <td>
+                                    <button class="row-menu">
+                                        •••
+                                    </button>
+                                </td>
+
+                            </tr>
+
+
+
+                            <tr
+                                data-department="CSE"
+                                data-status="Rejected"
+                            >
+
+                                <td>#104</td>
+
+                                <td>
+                                    <div class="idea">
+                                        <strong>
+                                            Blockchain File Sharing Portal
+                                        </strong>
+                                        <span>
+                                            Cyber Security
+                                        </span>
+                                    </div>
+                                </td>
+
+                                <td>CSE</td>
+
+                                <td>Indris</td>
+
+                                <td>27 Sep 2026</td>
+
+                                <td>
+                                    <span class="status rejected">
+                                        Rejected
+                                    </span>
+                                </td>
+
+                                <td>
+                                    <button class="row-menu">
+                                        •••
+                                    </button>
+                                </td>
+
+                            </tr>
+
+
+                        </tbody>
+
+                    </table>
+
+                </div>
+
+            </div>
+
+        </section>
+
+
+
+        <!-- =================================================
+             USERS
+        ================================================= -->
+
+        <section class="section" id="users">
+
+            <div class="section-heading">
+
+                <div>
+                    <p>DIRECTORY</p>
+                    <h2>Users</h2>
+                </div>
+
+                <button
+                    class="secondary"
+                    onclick="showToast('Users','User management selected.')"
+                >
+                    Manage users →
+                </button>
+
+            </div>
+
+
+            <div class="users">
+
+
+                <div class="user">
+
+                    <div class="user-avatar student">
+                        IN
+                    </div>
+
+                    <div class="user-info">
+                        <strong>Indris</strong>
+                        <span>Student</span>
+                        <small>Computer Science</small>
+                    </div>
+
+                    <span class="online"></span>
+
+                </div>
+
+
+
+                <div class="user">
+
+                    <div class="user-avatar student">
+                        NK
+                    </div>
+
+                    <div class="user-info">
+                        <strong>Niveth Karthikeyan</strong>
+                        <span>Student</span>
+                        <small>Electronics & Communication</small>
+                    </div>
+
+                    <span class="online"></span>
+
+                </div>
+
+
+
+                <div class="user">
+
+                    <div class="user-avatar student">
+                        SA
+                    </div>
+
+                    <div class="user-info">
+                        <strong>Surya Anil</strong>
+                        <span>Student</span>
+                        <small>Electrical Engineering</small>
+                    </div>
+
+                    <span class="online"></span>
+
+                </div>
+
+
+
+                <div class="user">
+
+                    <div class="user-avatar faculty">
+                        IM
+                    </div>
+
+                    <div class="user-info">
+                        <strong>Ironman</strong>
+                        <span>Faculty</span>
+                        <small>Computer Science</small>
+                    </div>
+
+                    <span class="online"></span>
+
+                </div>
+
+
+
+                <div class="user">
+
+                    <div class="user-avatar faculty">
+                        CA
+                    </div>
+
+                    <div class="user-info">
+                        <strong>Captain America</strong>
+                        <span>Faculty</span>
+                        <small>Mechanical Engineering</small>
+                    </div>
+
+                    <span class="online"></span>
+
+                </div>
+
+
+
+                <div class="user">
+
+                    <div class="user-avatar faculty">
+                        TH
+                    </div>
+
+                    <div class="user-info">
+                        <strong>Thor</strong>
+                        <span>Faculty</span>
+                        <small>Electrical Engineering</small>
+                    </div>
+
+                    <span class="online"></span>
+
+                </div>
+
+
+            </div>
+
+        </section>
+
+
+
+        <!-- =================================================
+             BROADCAST
+        ================================================= -->
+
+        <section class="section" id="broadcast">
+
+            <div class="section-heading">
+
+                <div>
+                    <p>COMMUNICATION</p>
+                    <h2>Broadcast Alert</h2>
+                </div>
+
+            </div>
+
+
+            <div class="panel broadcast">
+
+
+                <div class="broadcast-header">
+
+                    <div class="broadcast-icon">
+                        ◇
+                    </div>
+
+                    <div>
+
+                        <h3>
+                            Send an announcement
+                        </h3>
+
+                        <p>
+                            Share important updates with students and faculty.
+                        </p>
+
+                    </div>
+
+                </div>
+
+
+                <form id="broadcastForm">
+
+
+                    <div class="form-row">
+
+                        <div class="form-group">
+
+                            <label>
+                                AUDIENCE
+                            </label>
+
+                            <select id="audience">
+
+                                <option>
+                                    All Users
+                                </option>
+
+                                <option>
+                                    Students
+                                </option>
+
+                                <option>
+                                    Faculty
+                                </option>
+
+                            </select>
+
+                        </div>
+
+
+                        <div class="form-group">
+
+                            <label>
+                                PRIORITY
+                            </label>
+
+                            <select id="priority">
+
+                                <option>
+                                    Normal
+                                </option>
+
+                                <option>
+                                    Important
+                                </option>
+
+                                <option>
+                                    Urgent
+                                </option>
+
+                            </select>
+
+                        </div>
+
+                    </div>
+
+
+                    <div class="form-group">
+
+                        <label>
+                            ANNOUNCEMENT
+                        </label>
+
+                        <textarea
+                            id="message"
+                            maxlength="250"
+                            placeholder="Write your announcement here..."
+                        ></textarea>
+
+                        <div class="text-count">
+                            <span id="count">0</span>/250
+                        </div>
+
+                    </div>
+
+
+                    <div class="form-actions">
+
+                        <button
+                            type="button"
+                            class="secondary"
+                            id="clear"
+                        >
+                            Clear
+                        </button>
+
+                        <button
+                            type="submit"
+                            class="primary"
+                        >
+                            Send Announcement
+                        </button>
+
+                    </div>
+
+
+                </form>
+
+            </div>
+
+        </section>
+
+
+
+        <!-- FOOTER -->
+
+        <footer class="footer">
+
+            <span>
+                © 2026 IdeaHub Admin Portal
+            </span>
+
+            <span>
+                Student Innovation Management System
+            </span>
+
+        </footer>
+
+
+    </div>
+
+</main>
+
+
+
+<!-- =====================================================
+     NOTIFICATION PANEL
+===================================================== -->
+
+<div class="notification-panel" id="notificationPanel">
+
+    <div class="notification-head">
+
+        <div>
+            <strong>Notifications</strong>
+            <span>3 new updates</span>
+        </div>
+
+        <button id="closeNotification">
+            ×
+        </button>
+
+    </div>
+
+
+    <div class="notice">
+
+        <span class="notice-dot notice-blue"></span>
+
+        <div>
+            <strong>New idea submitted</strong>
+            <p>Smart Campus Navigation was submitted.</p>
+            <small>12 minutes ago</small>
+        </div>
+
+    </div>
+
+
+    <div class="notice">
+
+        <span class="notice-dot notice-green"></span>
+
+        <div>
+            <strong>Idea approved</strong>
+            <p>AI Attendance System was approved.</p>
+            <small>1 hour ago</small>
+        </div>
+
+    </div>
+
+
+    <div class="notice">
+
+        <span class="notice-dot notice-orange"></span>
+
+        <div>
+            <strong>New user registered</strong>
+            <p>A new student joined the portal.</p>
+            <small>2 hours ago</small>
+        </div>
+
+    </div>
+
+</div>
+
+
+
+<!-- =====================================================
+     TOAST
+===================================================== -->
+
+<div class="toast" id="toast">
+
+    <div class="toast-icon">
+        ✓
+    </div>
+
+    <div>
+        <strong id="toastTitle">Success</strong>
+        <span id="toastText">
+            Action completed.
+        </span>
+    </div>
+
+</div>
+
+
+
+<script>
+
+/* =====================================================
+   MOBILE MENU
+===================================================== */
+
+const sidebar =
+    document.getElementById("sidebar");
+
+const mobileMenu =
+    document.getElementById("mobileMenu");
+
+mobileMenu.addEventListener("click", () => {
+
+    sidebar.classList.toggle("open");
+
+});
+
+
+document.querySelectorAll(".nav-link").forEach(link => {
+
+    link.addEventListener("click", () => {
+
+        if(window.innerWidth <= 768){
+            sidebar.classList.remove("open");
+        }
+
+    });
+
+});
+
+
+/* =====================================================
+   NOTIFICATIONS
+===================================================== */
+
+const notificationButton =
+    document.getElementById("notificationButton");
+
+const notificationPanel =
+    document.getElementById("notificationPanel");
+
+const closeNotification =
+    document.getElementById("closeNotification");
+
+
+notificationButton.addEventListener("click", event => {
+
+    event.stopPropagation();
+
+    notificationPanel.classList.toggle("show");
+
+});
+
+
+closeNotification.addEventListener("click", () => {
+
+    notificationPanel.classList.remove("show");
+
+});
+
+
+document.addEventListener("click", event => {
+
+    if(
+        notificationPanel.classList.contains("show") &&
+        !notificationPanel.contains(event.target) &&
+        !notificationButton.contains(event.target)
+    ){
+
+        notificationPanel.classList.remove("show");
+
+    }
+
+});
+
+
+/* =====================================================
+   TOAST
+===================================================== */
+
+function showToast(title,message){
+
+    const toast =
+        document.getElementById("toast");
+
+    document.getElementById("toastTitle")
+        .textContent = title;
+
+    document.getElementById("toastText")
+        .textContent = message;
+
+    toast.classList.add("show");
+
+    setTimeout(() => {
+
+        toast.classList.remove("show");
+
+    },3000);
+
+}
+
+
+/* =====================================================
+   SEARCH + FILTER
+===================================================== */
+
+const search =
+    document.getElementById("search");
+
+const department =
+    document.getElementById("department");
+
+const status =
+    document.getElementById("status");
+
+
+function filterIdeas(){
+
+    const text =
+        search.value.toLowerCase();
+
+    const dep =
+        department.value;
+
+    const stat =
+        status.value;
+
+
+    document.querySelectorAll("#ideaTable tbody tr")
+        .forEach(row => {
+
+            const content =
+                row.textContent.toLowerCase();
+
+            const rowDep =
+                row.dataset.department;
+
+            const rowStatus =
+                row.dataset.status;
+
+
+            const searchMatch =
+                content.includes(text);
+
+            const departmentMatch =
+                dep === "all" ||
+                dep === rowDep;
+
+            const statusMatch =
+                stat === "all" ||
+                stat === rowStatus;
+
+
+            row.style.display =
+                searchMatch &&
+                departmentMatch &&
+                statusMatch
+                ? ""
+                : "none";
+
+        });
+
+}
+
+
+search.addEventListener("input",filterIdeas);
+
+department.addEventListener("change",filterIdeas);
+
+status.addEventListener("change",filterIdeas);
+
+
+/* =====================================================
+   IDEA ACTION
+===================================================== */
+
+document.querySelectorAll(".row-menu")
+.forEach(button => {
+
+    button.addEventListener("click",() => {
+
+        const row =
+            button.closest("tr");
+
+        const idea =
+            row.querySelector(".idea strong")
+            .textContent;
+
+        showToast(
+            "Idea selected",
+            idea
+        );
+
+    });
+
+});
+
+
+/* =====================================================
+   REVIEW IDEAS
+===================================================== */
+
+function goToIdeas(){
+
+    document
+        .getElementById("projects")
+        .scrollIntoView({
+            behavior:"smooth"
+        });
+
+}
+
+
+/* =====================================================
+   BROADCAST
+===================================================== */
+
+const message =
+    document.getElementById("message");
+
+const count =
+    document.getElementById("count");
+
+const broadcastForm =
+    document.getElementById("broadcastForm");
+
+const clear =
+    document.getElementById("clear");
+
+
+message.addEventListener("input",() => {
+
+    count.textContent =
+        message.value.length;
+
+});
+
+
+broadcastForm.addEventListener("submit",event => {
+
+    event.preventDefault();
+
+    const text =
+        message.value.trim();
+
+    const audience =
+        document.getElementById("audience").value;
+
+    const priority =
+        document.getElementById("priority").value;
+
+
+    if(!text){
+
+        showToast(
+            "Message required",
+            "Please write an announcement first."
+        );
+
+        message.focus();
+
+        return;
+
+    }
+
+
+    showToast(
+        "Announcement sent",
+        `${priority} message sent to ${audience}.`
+    );
+
+
+    broadcastForm.reset();
+
+    count.textContent = "0";
+
+});
+
+
+clear.addEventListener("click",() => {
+
+    broadcastForm.reset();
+
+    count.textContent = "0";
+
+    showToast(
+        "Cleared",
+        "Announcement form cleared."
+    );
+
+});
+
+
+/* =====================================================
+   CHART PERIOD
+===================================================== */
+
+document.getElementById("period")
+.addEventListener("change",event => {
+
+    showToast(
+        "Chart updated",
+        event.target.value
+    );
+
+});
+
+
+/* =====================================================
+   SETTINGS
+===================================================== */
+
+document.getElementById("settingsLink")
+.addEventListener("click",event => {
+
+    event.preventDefault();
+
+    showToast(
+        "Settings",
+        "Settings module selected."
+    );
+
+});
+
+
+/* =====================================================
+   HELP
+===================================================== */
+
+document.getElementById("helpLink")
+.addEventListener("click",event => {
+
+    event.preventDefault();
+
+    showToast(
+        "Help & Support",
+        "Support centre selected."
+    );
+
+});
+
+
+/* =====================================================
+   NAVIGATION ACTIVE STATE
+===================================================== */
+
+document.querySelectorAll(".nav-link")
+.forEach(link => {
+
+    link.addEventListener("click",() => {
+
+        document.querySelectorAll(".nav-link")
+        .forEach(item => {
+
+            item.classList.remove("active");
+
+        });
+
+        link.classList.add("active");
+
+    });
+
+});
+
+
+/* =====================================================
+   SCROLL ACTIVE NAV
+===================================================== */
+
+window.addEventListener("scroll",() => {
+
+    const sections =
+        document.querySelectorAll(
+            "#dashboard,#projects,#users,#broadcast"
+        );
+
+    let current = "dashboard";
+
+
+    sections.forEach(section => {
+
+        const top =
+            section.offsetTop - 150;
+
+        if(window.scrollY >= top){
+
+            current =
+                section.id;
+
+        }
+
+    });
+
+
+    document.querySelectorAll(".nav-link")
+    .forEach(link => {
+
+        link.classList.remove("active");
+
+        if(
+            link.getAttribute("href") ===
+            "#" + current
+        ){
+
+            link.classList.add("active");
+
+        }
+
+    });
+
+});
+
+
+/* =====================================================
+   ESCAPE KEY
+===================================================== */
+
+document.addEventListener("keydown",event => {
+
+    if(event.key === "Escape"){
+
+        notificationPanel.classList.remove("show");
+
+        sidebar.classList.remove("open");
+
+    }
+
+});
+
+
+/* =====================================================
+   INITIALIZE
+===================================================== */
+
+filterIdeas();
+
+console.log(
+    "IdeaHub Admin Portal loaded successfully."
+);
+
+</script>
+
+</body>
+</html>
