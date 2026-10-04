@@ -1,0 +1,1053 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>IdeaHub - Faculty Portal</title>
+
+<style>
+*{
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
+    font-family:Inter,Arial,sans-serif;
+}
+
+body{
+    background:#f5f7fb;
+    color:#172033;
+}
+
+/* LOGIN */
+.login-page{
+    min-height:100vh;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    background:linear-gradient(135deg,#111827,#4f46e5);
+}
+
+.login-box{
+    width:390px;
+    background:white;
+    padding:38px;
+    border-radius:24px;
+    box-shadow:0 25px 60px rgba(0,0,0,.25);
+}
+
+.logo{
+    text-align:center;
+    margin-bottom:30px;
+}
+
+.logo-icon{
+    width:58px;
+    height:58px;
+    margin:auto;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    border-radius:17px;
+    background:#4f46e5;
+    color:white;
+    font-size:27px;
+}
+
+.logo h1{
+    margin-top:12px;
+    font-size:25px;
+}
+
+.logo p{
+    color:#7b8498;
+    margin-top:5px;
+}
+
+.input{
+    margin-bottom:17px;
+}
+
+.input label{
+    display:block;
+    font-size:13px;
+    font-weight:600;
+    margin-bottom:7px;
+}
+
+.input input{
+    width:100%;
+    padding:13px 14px;
+    border:1px solid #dfe3eb;
+    border-radius:11px;
+    outline:none;
+}
+
+.input input:focus{
+    border-color:#4f46e5;
+}
+
+.btn{
+    border:0;
+    cursor:pointer;
+    padding:12px 18px;
+    border-radius:10px;
+    font-weight:600;
+}
+
+.login-btn{
+    width:100%;
+    background:#4f46e5;
+    color:white;
+    margin-top:5px;
+}
+
+/* APP */
+.app{
+    display:none;
+    min-height:100vh;
+}
+
+.sidebar{
+    position:fixed;
+    width:245px;
+    height:100vh;
+    background:#111827;
+    color:white;
+    padding:25px 17px;
+}
+
+.sidebar-logo{
+    font-size:22px;
+    font-weight:800;
+    padding:0 12px 30px;
+}
+
+.sidebar-logo span{
+    color:#818cf8;
+}
+
+.nav-item{
+    padding:13px 15px;
+    margin:5px 0;
+    border-radius:10px;
+    cursor:pointer;
+    color:#aeb7c9;
+}
+
+.nav-item:hover,
+.nav-item.active{
+    background:#292f42;
+    color:white;
+}
+
+.logout{
+    position:absolute;
+    bottom:25px;
+    left:17px;
+    right:17px;
+    background:#272d3d;
+}
+
+/* MAIN */
+.main{
+    margin-left:245px;
+    padding:28px 35px;
+}
+
+.topbar{
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+    margin-bottom:30px;
+}
+
+.topbar h2{
+    font-size:27px;
+}
+
+.profile{
+    display:flex;
+    align-items:center;
+    gap:12px;
+}
+
+.avatar{
+    width:42px;
+    height:42px;
+    border-radius:50%;
+    background:#4f46e5;
+    color:white;
+    display:flex;
+    justify-content:center;
+    align-items:center;
+    font-weight:bold;
+}
+
+/* CARDS */
+.stats{
+    display:grid;
+    grid-template-columns:repeat(4,1fr);
+    gap:18px;
+    margin-bottom:30px;
+}
+
+.stat-card{
+    background:white;
+    border-radius:17px;
+    padding:22px;
+    box-shadow:0 4px 15px rgba(20,30,60,.05);
+}
+
+.stat-icon{
+    width:42px;
+    height:42px;
+    border-radius:11px;
+    background:#eef0ff;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    margin-bottom:15px;
+}
+
+.stat-card h3{
+    font-size:27px;
+}
+
+.stat-card p{
+    color:#7b8498;
+    margin-top:4px;
+}
+
+/* CONTENT */
+.panel{
+    background:white;
+    border-radius:17px;
+    padding:24px;
+    box-shadow:0 4px 15px rgba(20,30,60,.05);
+}
+
+.panel-head{
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+    margin-bottom:20px;
+}
+
+.panel-head h3{
+    font-size:19px;
+}
+
+.search{
+    padding:10px 13px;
+    border:1px solid #ddd;
+    border-radius:9px;
+    outline:none;
+}
+
+table{
+    width:100%;
+    border-collapse:collapse;
+}
+
+th{
+    text-align:left;
+    color:#7c8495;
+    font-size:12px;
+    padding:13px;
+    border-bottom:1px solid #eee;
+}
+
+td{
+    padding:16px 13px;
+    border-bottom:1px solid #f0f1f4;
+    font-size:14px;
+}
+
+.status{
+    padding:6px 10px;
+    border-radius:20px;
+    font-size:11px;
+    font-weight:bold;
+}
+
+.submitted{
+    background:#fff7df;
+    color:#b77900;
+}
+
+.approved{
+    background:#e8f8ee;
+    color:#168345;
+}
+
+.revision{
+    background:#eeeaff;
+    color:#5948d8;
+}
+
+.rejected{
+    background:#ffe9e9;
+    color:#d33535;
+}
+
+.view-btn{
+    background:#eef0ff;
+    color:#4f46e5;
+}
+
+/* MODAL */
+.modal{
+    display:none;
+    position:fixed;
+    inset:0;
+    background:rgba(0,0,0,.55);
+    align-items:center;
+    justify-content:center;
+    padding:20px;
+    z-index:10;
+}
+
+.modal-box{
+    background:white;
+    width:700px;
+    max-width:100%;
+    max-height:90vh;
+    overflow:auto;
+    border-radius:20px;
+    padding:28px;
+}
+
+.modal-header{
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+    margin-bottom:22px;
+}
+
+.close{
+    border:0;
+    background:#f1f2f5;
+    width:35px;
+    height:35px;
+    border-radius:50%;
+    cursor:pointer;
+}
+
+.detail{
+    margin-bottom:18px;
+}
+
+.detail label{
+    display:block;
+    font-size:12px;
+    color:#7b8498;
+    font-weight:bold;
+    margin-bottom:6px;
+}
+
+.detail p{
+    background:#f7f8fb;
+    padding:12px;
+    border-radius:10px;
+    line-height:1.5;
+}
+
+textarea{
+    width:100%;
+    min-height:100px;
+    padding:13px;
+    border:1px solid #ddd;
+    border-radius:10px;
+    resize:vertical;
+    outline:none;
+}
+
+.actions{
+    display:flex;
+    gap:10px;
+    margin-top:20px;
+}
+
+.approve{
+    background:#16a34a;
+    color:white;
+}
+
+.revision-btn{
+    background:#f59e0b;
+    color:white;
+}
+
+.reject{
+    background:#dc2626;
+    color:white;
+}
+
+/* NOTIFICATION */
+.toast{
+    position:fixed;
+    right:25px;
+    bottom:25px;
+    background:#111827;
+    color:white;
+    padding:15px 20px;
+    border-radius:12px;
+    display:none;
+    z-index:30;
+}
+
+/* RESPONSIVE */
+@media(max-width:900px){
+    .stats{
+        grid-template-columns:repeat(2,1fr);
+    }
+
+    .sidebar{
+        width:200px;
+    }
+
+    .main{
+        margin-left:200px;
+    }
+}
+
+@media(max-width:650px){
+    .sidebar{
+        display:none;
+    }
+
+    .main{
+        margin-left:0;
+        padding:20px;
+    }
+
+    .stats{
+        grid-template-columns:1fr 1fr;
+    }
+
+    table{
+        min-width:700px;
+    }
+
+    .panel{
+        overflow-x:auto;
+    }
+}
+</style>
+</head>
+
+<body>
+
+<!-- ================= LOGIN ================= -->
+
+<div class="login-page" id="loginPage">
+
+    <div class="login-box">
+
+        <div class="logo">
+            <div class="logo-icon">💡</div>
+            <h1>IdeaHub</h1>
+            <p>Faculty Portal</p>
+        </div>
+
+        <div class="input">
+            <label>Faculty Email</label>
+            <input id="email" type="email"
+                   placeholder="faculty@college.edu">
+        </div>
+
+        <div class="input">
+            <label>Password</label>
+            <input id="password" type="password"
+                   placeholder="Enter password">
+        </div>
+
+        <button class="btn login-btn" onclick="login()">
+            Login to Faculty Portal
+        </button>
+
+    </div>
+</div>
+
+
+<!-- ================= APPLICATION ================= -->
+
+<div class="app" id="app">
+
+    <!-- SIDEBAR -->
+
+    <aside class="sidebar">
+
+        <div class="sidebar-logo">
+            💡 Idea<span>Hub</span>
+        </div>
+
+        <div class="nav-item active">
+            📊 Dashboard
+        </div>
+
+        <div class="nav-item">
+            📄 Submitted Ideas
+        </div>
+
+        <div class="nav-item">
+            🔔 Notifications
+        </div>
+
+        <div class="nav-item">
+            👤 Faculty Profile
+        </div>
+
+        <div class="nav-item logout" onclick="logout()">
+            🚪 Logout
+        </div>
+
+    </aside>
+
+
+    <!-- MAIN -->
+
+    <main class="main">
+
+        <div class="topbar">
+
+            <div>
+                <h2>Faculty Dashboard</h2>
+                <p style="color:#7b8498;margin-top:5px;">
+                    Review and manage student innovations
+                </p>
+            </div>
+
+            <div class="profile">
+                <div>
+                    <strong>Dr. Priya Sharma</strong>
+                    <small style="display:block;color:#7b8498;">
+                        Computer Science
+                    </small>
+                </div>
+
+                <div class="avatar">PS</div>
+            </div>
+
+        </div>
+
+
+        <!-- STATISTICS -->
+
+        <section class="stats">
+
+            <div class="stat-card">
+                <div class="stat-icon">📄</div>
+                <h3 id="totalIdeas">0</h3>
+                <p>Total Ideas</p>
+            </div>
+
+            <div class="stat-card">
+                <div class="stat-icon">⏳</div>
+                <h3 id="pendingIdeas">0</h3>
+                <p>Pending Review</p>
+            </div>
+
+            <div class="stat-card">
+                <div class="stat-icon">✅</div>
+                <h3 id="approvedIdeas">0</h3>
+                <p>Approved</p>
+            </div>
+
+            <div class="stat-card">
+                <div class="stat-icon">❌</div>
+                <h3 id="rejectedIdeas">0</h3>
+                <p>Rejected</p>
+            </div>
+
+        </section>
+
+
+        <!-- PROJECT TABLE -->
+
+        <section class="panel">
+
+            <div class="panel-head">
+
+                <h3>Student Project Ideas</h3>
+
+                <input
+                    class="search"
+                    id="search"
+                    placeholder="Search projects..."
+                    onkeyup="displayProjects()"
+                >
+
+            </div>
+
+            <table>
+
+                <thead>
+                    <tr>
+                        <th>PROJECT</th>
+                        <th>STUDENT</th>
+                        <th>DEPARTMENT</th>
+                        <th>DATE</th>
+                        <th>STATUS</th>
+                        <th>ACTION</th>
+                    </tr>
+                </thead>
+
+                <tbody id="projectTable"></tbody>
+
+            </table>
+
+        </section>
+
+    </main>
+
+</div>
+
+
+<!-- ================= REVIEW MODAL ================= -->
+
+<div class="modal" id="reviewModal">
+
+    <div class="modal-box">
+
+        <div class="modal-header">
+
+            <h2>Review Project</h2>
+
+            <button class="close"
+                    onclick="closeModal()">×</button>
+
+        </div>
+
+        <div id="projectDetails"></div>
+
+        <div class="detail">
+
+            <label>FACULTY FEEDBACK</label>
+
+            <textarea
+                id="feedback"
+                placeholder="Write your feedback or suggestions...">
+            </textarea>
+
+        </div>
+
+        <div class="actions">
+
+            <button class="btn approve"
+                    onclick="updateStatus('Approved')">
+                ✓ Approve
+            </button>
+
+            <button class="btn revision-btn"
+                    onclick="updateStatus('Revision Required')">
+                ↻ Request Revision
+            </button>
+
+            <button class="btn reject"
+                    onclick="updateStatus('Rejected')">
+                ✕ Reject
+            </button>
+
+        </div>
+
+    </div>
+
+</div>
+
+
+<div class="toast" id="toast"></div>
+
+
+<script>
+
+/* =====================================================
+   SIMPLE DATABASE
+   ===================================================== */
+
+const defaultProjects = [
+
+{
+    id:1,
+    title:"Smart Campus Navigation",
+    student:"Arun Kumar",
+    department:"Computer Science",
+    date:"05 Oct 2026",
+    problem:"Students find it difficult to locate classrooms, labs and offices inside the campus.",
+    solution:"A mobile application that provides real-time campus navigation.",
+    technology:"Flutter, Firebase, Google Maps API",
+    status:"Submitted",
+    feedback:""
+},
+
+{
+    id:2,
+    title:"AI Attendance System",
+    student:"Rahul Raj",
+    department:"Information Technology",
+    date:"04 Oct 2026",
+    problem:"Manual attendance takes considerable classroom time.",
+    solution:"Face recognition based attendance management system.",
+    technology:"Python, OpenCV, Firebase",
+    status:"Submitted",
+    feedback:""
+},
+
+{
+    id:3,
+    title:"College Waste Management",
+    student:"Sneha Priya",
+    department:"ECE",
+    date:"03 Oct 2026",
+    problem:"Improper waste segregation causes environmental problems.",
+    solution:"Smart bins that classify waste automatically.",
+    technology:"Arduino, Sensors, IoT",
+    status:"Approved",
+    feedback:"Good concept with strong social impact."
+}
+
+];
+
+
+/* LOAD DATABASE */
+
+if(!localStorage.getItem("ideaHubProjects")){
+    localStorage.setItem(
+        "ideaHubProjects",
+        JSON.stringify(defaultProjects)
+    );
+}
+
+
+let projects =
+    JSON.parse(localStorage.getItem("ideaHubProjects"));
+
+let selectedProject = null;
+
+
+/* =====================================================
+   LOGIN
+   ===================================================== */
+
+function login(){
+
+    const email =
+        document.getElementById("email").value;
+
+    const password =
+        document.getElementById("password").value;
+
+    if(email === "" || password === ""){
+
+        showToast("Please enter email and password");
+
+        return;
+    }
+
+    document.getElementById("loginPage")
+        .style.display="none";
+
+    document.getElementById("app")
+        .style.display="block";
+
+    displayProjects();
+
+}
+
+
+/* =====================================================
+   LOGOUT
+   ===================================================== */
+
+function logout(){
+
+    document.getElementById("app")
+        .style.display="none";
+
+    document.getElementById("loginPage")
+        .style.display="flex";
+
+}
+
+
+/* =====================================================
+   DISPLAY PROJECTS
+   ===================================================== */
+
+function displayProjects(){
+
+    projects =
+        JSON.parse(
+            localStorage.getItem("ideaHubProjects")
+        );
+
+    const search =
+        document.getElementById("search")
+        .value
+        .toLowerCase();
+
+    const table =
+        document.getElementById("projectTable");
+
+    table.innerHTML="";
+
+    projects
+    .filter(p =>
+        p.title.toLowerCase().includes(search) ||
+        p.student.toLowerCase().includes(search)
+    )
+    .forEach(project => {
+
+        let statusClass =
+            project.status === "Approved"
+            ? "approved"
+            : project.status === "Rejected"
+            ? "rejected"
+            : project.status === "Revision Required"
+            ? "revision"
+            : "submitted";
+
+        table.innerHTML += `
+
+        <tr>
+
+            <td>
+                <strong>${project.title}</strong>
+            </td>
+
+            <td>${project.student}</td>
+
+            <td>${project.department}</td>
+
+            <td>${project.date}</td>
+
+            <td>
+                <span class="status ${statusClass}">
+                    ${project.status}
+                </span>
+            </td>
+
+            <td>
+
+                <button
+                    class="btn view-btn"
+                    onclick="openReview(${project.id})">
+
+                    Review
+
+                </button>
+
+            </td>
+
+        </tr>
+
+        `;
+
+    });
+
+    updateStats();
+
+}
+
+
+/* =====================================================
+   STATISTICS
+   ===================================================== */
+
+function updateStats(){
+
+    document.getElementById("totalIdeas")
+        .innerText = projects.length;
+
+    document.getElementById("pendingIdeas")
+        .innerText =
+        projects.filter(
+            p => p.status === "Submitted"
+        ).length;
+
+    document.getElementById("approvedIdeas")
+        .innerText =
+        projects.filter(
+            p => p.status === "Approved"
+        ).length;
+
+    document.getElementById("rejectedIdeas")
+        .innerText =
+        projects.filter(
+            p => p.status === "Rejected"
+        ).length;
+
+}
+
+
+/* =====================================================
+   OPEN REVIEW
+   ===================================================== */
+
+function openReview(id){
+
+    selectedProject =
+        projects.find(p => p.id === id);
+
+    document.getElementById("projectDetails")
+        .innerHTML = `
+
+        <div class="detail">
+            <label>PROJECT TITLE</label>
+            <p>${selectedProject.title}</p>
+        </div>
+
+        <div class="detail">
+            <label>STUDENT</label>
+            <p>${selectedProject.student}
+            — ${selectedProject.department}</p>
+        </div>
+
+        <div class="detail">
+            <label>PROBLEM STATEMENT</label>
+            <p>${selectedProject.problem}</p>
+        </div>
+
+        <div class="detail">
+            <label>PROPOSED SOLUTION</label>
+            <p>${selectedProject.solution}</p>
+        </div>
+
+        <div class="detail">
+            <label>TECHNOLOGY USED</label>
+            <p>${selectedProject.technology}</p>
+        </div>
+
+        `;
+
+    document.getElementById("feedback")
+        .value =
+        selectedProject.feedback || "";
+
+    document.getElementById("reviewModal")
+        .style.display="flex";
+
+}
+
+
+/* =====================================================
+   UPDATE PROJECT STATUS
+   ===================================================== */
+
+function updateStatus(status){
+
+    if(!selectedProject)
+        return;
+
+    const feedback =
+        document.getElementById("feedback").value;
+
+    selectedProject.status = status;
+
+    selectedProject.feedback = feedback;
+
+    const index =
+        projects.findIndex(
+            p => p.id === selectedProject.id
+        );
+
+    projects[index] = selectedProject;
+
+    localStorage.setItem(
+        "ideaHubProjects",
+        JSON.stringify(projects)
+    );
+
+
+    /* CREATE NOTIFICATION */
+
+    const notification = {
+
+        id:Date.now(),
+
+        student:selectedProject.student,
+
+        projectId:selectedProject.id,
+
+        message:
+        `Your project "${selectedProject.title}" status has been changed to ${status}.`,
+
+        feedback:feedback,
+
+        date:new Date().toLocaleString(),
+
+        read:false
+
+    };
+
+
+    let notifications =
+        JSON.parse(
+            localStorage.getItem(
+                "ideaHubNotifications"
+            )
+        ) || [];
+
+    notifications.push(notification);
+
+    localStorage.setItem(
+        "ideaHubNotifications",
+        JSON.stringify(notifications)
+    );
+
+
+    closeModal();
+
+    displayProjects();
+
+    showToast(
+        `Project ${status.toLowerCase()} successfully`
+    );
+
+}
+
+
+/* =====================================================
+   CLOSE MODAL
+   ===================================================== */
+
+function closeModal(){
+
+    document.getElementById("reviewModal")
+        .style.display="none";
+
+    selectedProject=null;
+
+}
+
+
+/* =====================================================
+   TOAST
+   ===================================================== */
+
+function showToast(message){
+
+    const toast =
+        document.getElementById("toast");
+
+    toast.innerText=message;
+
+    toast.style.display="block";
+
+    setTimeout(() => {
+
+        toast.style.display="none";
+
+    },3000);
+
+}
+
+
+/* INITIAL LOAD */
+
+displayProjects();
+
+</script>
+
+</body>
+</html>
